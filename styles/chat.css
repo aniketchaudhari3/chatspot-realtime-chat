@@ -1,0 +1,118 @@
+.body{
+  background-color: white !important;
+}
+
+.chat__header{
+  position: fixed;
+  top: 0;
+  right:0;
+  height: 50px;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  background-color: #422f81;
+}
+
+.chat__header i{
+  padding: 7px;
+}
+
+.chat__input{
+  background-color: #422f81;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+#chatInput{
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  height: 45px;
+  margin-top: 7.5px;
+  padding-left: 20px;
+  font-size: 20px;
+  width: 50%;
+  margin-left: 5px;
+}
+
+.chat__send{
+  outline: none;
+  border: none;
+  border-radius: 30px;
+  color: black;
+  width: 20%;
+  margin-left: 5px;
+  margin-top: 7.5px;
+  height: 45px;
+  background-color: white;
+}
+
+.chat__send:hover{
+  background-color: rgb(204, 204, 204);
+}
+
+.chat__messages{
+  margin-top: 60px;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 120px);
+}
+
+.message{
+  width: 100%;
+  height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.message__head__you{
+  font-size: 12px;
+  text-align: right;
+  padding-right: 3px;
+  height: 15px;
+  width: 100%;
+}
+
+.message__head__other{
+  font-size: 12px;
+  text-align: left;
+  margin-left: 3px;
+  height: 15px;
+  width: 100%;
+}
+
+.you div{
+  background-color: #422f81;
+  color: white;
+  max-width: 70%;
+  float: right;
+  padding: 10px;
+  border-radius: 30px;
+  margin-right: 3px;
+}
+
+.other div{
+  background-color: #df1717;
+  color: white;
+  max-width: 70%;
+  float: left;
+  padding: 10px;
+  border-radius: 30px;
+  margin-left: 3px;
+}
+
+@media only screen and (max-width: 500px) {
+  #chatInput{
+    width: 70%;
+  }
+  .chat__send{
+    width: 25%;
+  }
+}

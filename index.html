@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/index.css">
+  <script src="https://kit.fontawesome.com/08ec8d84e8.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans" />
+  <title>ChatSpot | Connect with your friends!</title>
+</head>
+<body>
+
+  <nav class="nav__main">
+   <a href="index.html"><h2 class="nav__heading">ChatSpot</h2></a>
+    <a href="login.html"><button class="btn nav__btn">Login</button></a>
+  </nav>
+  
+  <div class="landing__page">
+    <div class="hero__heading">
+      <h1>Connect with your friends!</h1>
+      <h5>Chat with your friends in realtime</h5>
+      <a href="signup.html"><button class="btn hero__btn">
+        Join now!
+      </button></a>
+    </div>
+    <div class="hero__image">
+      <img src="./images/hero__image.png" alt="ChatSpot" srcset="">
+    </div>
+  </div>
+
+  <div class="community">
+    <div class="community__left">
+      <h2>Join 1000s of people on ChatSpot</h2>
+      <p>Express your passions and explore new ones</p>
+      <!-- <button class="btn hero__btn">
+        Get Started!
+      </button> -->
+    </div>
+    <div class="community__right">
+      <div class="community__item">
+        <img src="./images/tech.png" alt="" srcset="">
+        <p>Technology</p>
+      </div>
+      <div class="community__item">
+        <img src="./images/sports.png" alt="" srcset="">
+        <p>Sports</p>
+      </div>
+      <div class="community__item">
+        <img src="./images/general.png" alt="" srcset="">
+        <p>General</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta__section">
+    <h1>Join Chatspot now!</h1>
+    <p>Become a Chatspot member today</p>
+    <div class="cta__btn">
+      <a href="signup.html"><button class="btn hero__btn">
+        Sign up
+      </button></a>
+      <a href="login.html"><button class="btn login__cta">
+        Login
+      </button></a>
+    </div>
+  </div>
+
+  <div class="about">
+    <div class="about__left">
+      <h4>About Chatspot</h4>
+      <p>ChatSpot is a realtime messaging platform <br>where you can interact with communities of your interests</p>
+    </div>
+    <div class="about__middle">
+      <h4>Connect with us</h4>
+      <div class="icons">
+        <i class="fab  fa-facebook-f"></i>
+        <i class="fab  fa-instagram"></i>
+        <i class="fab  fa-twitter"></i>
+      </div>
+    </div>
+    <div class="about__right">
+      <h4>More Links</h4>
+      <p><a href="login.html">Login</a></p>
+      <p><a href="signup.html">Sign up</a></p>
+      <p><a href="team.html">Team</a></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="copy">&copy;</span> ChatSpot <script>document.write(new Date().getFullYear())</script> | All Rights Reserved</p>
+  </div>
+
+<div class="scripts"></div>
+ <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyC0prwW4IpH8Gf-1x6EEArQYQlwMlQf2cA",
+    authDomain: "chatspot-57ee0.firebaseapp.com",
+    projectId: "chatspot-57ee0",
+    storageBucket: "chatspot-57ee0.appspot.com",
+    messagingSenderId: "498691136670",
+    appId: "1:498691136670:web:e06f75a2ba2275fda7af8f",
+    measurementId: "G-CNLTGT3D3C"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+<script defer src="scripts/app.js"></script>
+</body>
+</html>

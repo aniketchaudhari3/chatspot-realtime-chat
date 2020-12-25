@@ -1,0 +1,161 @@
+
+.nav__btn {
+  height: 40px;
+  margin-top: 20px;
+  margin-right: 20px;
+  justify-self: end;
+  width: 120px;
+  border-radius: 30px;
+  font-size: 17px;
+  transition: all .15s;
+}
+
+.nav__btn:hover{
+  color: white;
+  background-color:#2b1e57;
+}
+
+.landing__page{
+  display: flex;
+  justify-content: space-around;
+}
+
+.hero__heading{
+  margin-top: 150px;
+  color: white;
+  font-size: 25px;
+  margin-left: 20px;
+}
+
+.hero__image img{
+  margin-top: 50px;
+  height: 400px;
+  width: 400px;
+}
+
+.hero__heading h5{
+  padding: 10px;
+}
+
+.hero__btn {
+  background: #E6A700;
+  height: 40px;
+  margin-top: 20px;
+  margin-right: 20px;
+  justify-self: end;
+  width: 120px;
+  border-radius: 30px;
+  font-size: 17px;
+  transition: all .15s;
+}
+
+.hero__btn:hover{
+  color: white;
+  background-color: black;
+}
+
+.community{
+  margin-top: 30px;
+  background-color: #9f5f80;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  color: #fff;
+  display: flex;
+  justify-content: space-around;
+}
+
+.community__left h2{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.community__right{
+  display: flex;
+  justify-content: space-between;
+}
+
+.community__item{
+  margin-right: 10px;
+  text-align: center;
+}
+
+.community__item img{
+  height: 80px;
+  width: 120px;
+  border-radius: 5px;
+}
+
+
+.cta__section{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  background-color: #583d72;
+  color: white;
+}
+
+.login__cta{
+  background: white !important;
+  height: 40px;
+  margin-top: 20px;
+  margin-right: 20px;
+  justify-self: end;
+  width: 120px;
+  border-radius: 30px;
+  font-size: 17px;
+  transition: all .15s;
+}
+
+.login__cta:hover{
+  color: white;
+  background: black !important;
+}
+
+
+/* mobile styles */
+
+@media only screen and (max-width: 500px) {
+  .hero__heading{
+    margin-top: 30px;
+    font-size: 20px;
+    margin-top: 30px;
+  }
+  .hero__heading h5{
+    font-size: 20px;
+    padding: 10px;
+  }
+  .hero__image img{
+    margin-top: 30px;
+    /* margin-left: 40px; */
+    justify-self: center;
+    height: 300px;
+    width: 300px;
+  }
+  .landing__page{
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .community{
+    flex-direction: column;
+  }
+  .community__left{
+    padding-left: 20px;
+  }
+  .community__right{
+    padding-left: 20px;
+    padding-top: 20px;
+  }
+  .about{
+    flex-direction: column;
+    padding-left: 20px;
+  }
+  .about__middle{
+    margin-top: 30px;
+  }
+  .about__right{
+    margin-top: 30px;
+  }
+
+}

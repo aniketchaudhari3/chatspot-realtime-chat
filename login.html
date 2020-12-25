@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/08ec8d84e8.js" crossorigin="anonymous"></script>
+  <title>Login | ChatSpot</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./styles/common.css">
+  <link rel="stylesheet" href="./styles/signup.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans" />
+</head>
+<body>
+  <nav class="nav__main">
+    <a href="index.html"><h2 class="nav__heading">ChatSpot</h2></a>
+  </nav>
+  <div class="form__container">
+    <form onsubmit="submitForm(event)" class="signup__form">
+      <h2>Welcome back</h2>
+      <input id="email" placeholder="Your Email" class="input__field" type="email" />
+      <input id="password" placeholder="Your password" class="input__field" type="password" />
+      <p>Don't have an account? <a href="signup.html">Signup</a></p>
+      <button class="btn nav__btn">Login</button>
+    </form>
+  </div>
+
+  <div class="about">
+    <div class="about__left">
+      <h4>About Chatspot</h4>
+      <p>ChatSpot is a realtime messaging platform <br>where you can interact with communities of your interests</p>
+    </div>
+    <div class="about__middle">
+      <h4>Connect with us</h4>
+      <div class="icons">
+        <i class="fab  fa-facebook-f"></i>
+        <i class="fab  fa-instagram"></i>
+        <i class="fab  fa-twitter"></i>
+      </div>
+    </div>
+    <div class="about__right">
+      <h4>More Links</h4>
+      <p><a href="login.html">Login</a></p>
+      <p><a href="signup.html">Sign up</a></p>
+      <p><a href="team.html">Team</a></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="copy">&copy;</span> ChatSpot <script>document.write(new Date().getFullYear())</script> | All Rights Reserved</p>
+  </div>
+  <div class="scripts"></div>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyC0prwW4IpH8Gf-1x6EEArQYQlwMlQf2cA",
+    authDomain: "chatspot-57ee0.firebaseapp.com",
+    projectId: "chatspot-57ee0",
+    storageBucket: "chatspot-57ee0.appspot.com",
+    messagingSenderId: "498691136670",
+    appId: "1:498691136670:web:e06f75a2ba2275fda7af8f",
+    measurementId: "G-CNLTGT3D3C"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  function login(email, password) {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+  .then((user) => {
+    swal({
+      title:'Successfully logged in',
+      icon: 'success'
+    })
+    console.log(user)
+    localStorage.currentUser = user
+    window.location = 'chat.html'
+  })
+  .catch((error) => {
+    swal({
+      title:'Failed to login',
+      text: `${error.message}`,
+      icon: 'error'
+    })
+    console.log(error)
+  });
+}
+</script>
+  <script src="./scripts/app.js"></script>
+  <script>
+    window.onload = () => {
+      // check login
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          window.location = 'chat.html'
+        } else {
+          swal({
+            title: 'Please login first'
+          })
+          setTimeout(() => {
+            
+          window.location = 'login.html'
+          }, 800)
+        }
+      });
+    }
+    function submitForm(event){
+      const email = $('#email').value
+      const password = $('#password').value
+      event.preventDefault()
+      
+      login(email, password)
+    }
+  </script>
+</body> 
+</html>

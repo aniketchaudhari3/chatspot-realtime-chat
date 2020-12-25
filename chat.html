@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/08ec8d84e8.js" crossorigin="anonymous"></script>
+  <title>Chat | ChatSpot</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="./styles/common.css">
+  <link rel="stylesheet" type="text/css" href="./styles/chat.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans" />
+</head>
+<body style="background: white">
+  
+  <div class="chat__header">
+   <a href="index.html"> <i class="fas fa-2x fa-angle-left"></i></a>
+  </div>
+
+  <div class="chat__messages">
+    <div class="message__head__you">Aniket Chaudhari</div>
+    <div class="message you">
+      <div>Hi Aniket</div>
+    </div>
+    <div class="message you">
+      <div>how are you</div>
+    </div>
+    <div class="message__head__other">Ravi Lakhara</div>
+    <div class="message other">
+      <div>fine</div>
+    </div>
+    <div class="message__head__you">Aniket Chaudhari</div>
+    <div class="message you">
+      <div>just testing</div>
+    </div>
+    <div class="message you">
+      <div>just testing</div>
+    </div>
+    <div class="message you">
+      <div>just testing</div>
+    </div>
+    <div class="message you">
+      <div>just testing</div>
+    </div>
+    <div class="message you">
+      <div>just testing</div>
+    </div>
+    <div class="message you">
+      <div>just testing</div>
+    </div>
+    
+  </div>
+  <div class="chat__input">
+    <input type="text" autofocus onkeydown="sendMessage(event)" placeholder="Type a message" id="chatInput" />
+    <button onclick="chat()" class="chat__send">
+      <i class="fas fa-lg fa-paper-plane"></i>
+    </button>
+  </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+
+<script>
+  let currentUser = null;
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyC0prwW4IpH8Gf-1x6EEArQYQlwMlQf2cA",
+    authDomain: "chatspot-57ee0.firebaseapp.com",
+    projectId: "chatspot-57ee0",
+    storageBucket: "chatspot-57ee0.appspot.com",
+    messagingSenderId: "498691136670",
+    appId: "1:498691136670:web:e06f75a2ba2275fda7af8f",
+    measurementId: "G-CNLTGT3D3C",
+    databaseURL: "https://chatspot-57ee0-default-rtdb.europe-west1.firebasedatabase.app",
+    storageBucket: "chatspot-57ee0.appspot.com",
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  // Get a reference to the database service
+  let database = firebase.database();
+  let messagesRef = database.ref('messages')
+</script>
+  <script src="./scripts/app.js"></script>
+  <script>
+    messagesRef.on('child_added', (snapshot) => {
+      console.log('sn ', snapshot.val())
+    })
+
+    // messagesRef.forEach((chat) => {
+    //   let data = chat.val()
+    //   console.log(data)
+    // })
+
+    function sendMessage(event){
+      if(event.keyCode === 13){
+        chat()
+      }
+    }
+
+    function createChatMessage(userId, name, message) {
+      console.log({userId, name, message})
+    database.ref('messages').push({
+        userId: userId,
+        username: name,
+        message: message,
+        timestamp: Date.now()
+      }).then(data => console.log(data))
+  }
+
+  function chat(){
+    let message = $('#chatInput')
+    if(message.value.length > 0){
+      createChatMessage(currentUser.uid, currentUser.displayName, message.value)
+      message.value = ''
+      message.focus()
+    } else {
+     console.log('msg len 0') 
+    }
+  }
+
+    window.onload = () => {
+      // check login
+      $('#chatInput').focus()
+      $('#chatInput').value = ''
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          currentUser = user
+          console.log('logged in ', user)
+        } else {
+          swal({
+            title: 'Please login first'
+          })
+          setTimeout(() => {
+            
+          window.location = 'login.html'
+          }, 800)
+        }
+      });
+    }
+  </script>
+</body> 
+</html>
