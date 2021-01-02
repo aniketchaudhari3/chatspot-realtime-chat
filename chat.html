@@ -133,6 +133,7 @@
       createChatMessage(currentUser.uid, currentUser.displayName, message.value)
       message.value = ''
       message.focus()
+      window.scrollTo(0,document.body.scrollHeight);
     } else {
      console.log('msg len 0') 
     }
