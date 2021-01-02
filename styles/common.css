@@ -5,6 +5,10 @@
   font-family: Product Sans;
 }
 
+a{
+  text-decoration: none;
+}
+
 body {
   background-color: #422f81;
 }

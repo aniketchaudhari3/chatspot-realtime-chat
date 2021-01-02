@@ -14,10 +14,18 @@
   
   <div class="chat__header">
    <a href="index.html"> <i class="fas fa-2x fa-angle-left"></i></a>
+   <a onclick="logOut()"> <i style="margin-top: 8px" class="fa fa-lg fa-sign-out"></i></a>
   </div>
 
-  <div class="chat__messages">
-    <div class="message__head__you">Aniket Chaudhari</div>
+  <div class="chat__messages" id="chatMessages">
+    <center id="loader">
+      <div class="load-3">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </center>
+    <!-- <div class="message__head__you">Aniket Chaudhari</div>
     <div class="message you">
       <div>Hi Aniket</div>
     </div>
@@ -28,25 +36,7 @@
     <div class="message other">
       <div>fine</div>
     </div>
-    <div class="message__head__you">Aniket Chaudhari</div>
-    <div class="message you">
-      <div>just testing</div>
-    </div>
-    <div class="message you">
-      <div>just testing</div>
-    </div>
-    <div class="message you">
-      <div>just testing</div>
-    </div>
-    <div class="message you">
-      <div>just testing</div>
-    </div>
-    <div class="message you">
-      <div>just testing</div>
-    </div>
-    <div class="message you">
-      <div>just testing</div>
-    </div>
+    </div> -->
     
   </div>
   <div class="chat__input">
@@ -92,14 +82,34 @@
 </script>
   <script src="./scripts/app.js"></script>
   <script>
-    messagesRef.on('child_added', (snapshot) => {
-      console.log('sn ', snapshot.val())
-    })
+    let chats = []
 
-    // messagesRef.forEach((chat) => {
-    //   let data = chat.val()
-    //   console.log(data)
-    // })
+    function renderChat(chats){
+      let prevUserName = '' // chats[0].username
+      let renderString = ''
+      chats.map((chat, index) => {
+        renderString += `
+        ${prevUserName !== chat.username ? `<div class="message__head__${currentUser.uid === chat.userId ? 'you' : 'other'}">${chat.username}</div>` : ''}
+        <div class="message ${currentUser.uid === chat.userId ? 'you' : 'other'}">
+          <div>${chat.message}</div>
+        </div>
+        `
+        prevUserName = chat.username
+      })
+      document.getElementById('chatMessages').innerHTML = renderString
+    }
+
+    function updateChat(snapshot){
+      if(!chats.includes(snapshot.timestamp)){
+        chats.push(snapshot)
+        if(document.getElementById('loader')) document.getElementById('loader').style.display = 'none'
+      }
+      renderChat(chats)
+    }
+
+    messagesRef.on('child_added', (snapshot) => {
+      updateChat(snapshot.val())
+    })
 
     function sendMessage(event){
       if(event.keyCode === 13){
@@ -126,6 +136,21 @@
     } else {
      console.log('msg len 0') 
     }
+  }
+
+  function logOut(){
+    swal({
+        title: `You've been logged out`,
+        icon: 'success'
+      })
+    firebase.auth().signOut().then(() => {
+      // Sign-out successful.
+      setTimeout(() => {
+        window.location = 'index.html'
+      }, 1500)
+    }).catch((error) => {
+      // An error happened.
+    });
   }
 
     window.onload = () => {

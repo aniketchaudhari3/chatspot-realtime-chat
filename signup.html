@@ -21,7 +21,7 @@
       <input id="email" placeholder="Your Email" class="input__field" type="email" />
       <input id="password" placeholder="Your password" class="input__field" type="password" />
       <p>Already have an account? <a href="login.html">Login</a></p>
-      <button class="btn nav__btn">Sign up</button>
+      <button class="btn nav__btn" id="signupBtn">Sign up</button>
     </form>
   </div>
 
@@ -77,7 +77,17 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
+  // loading state
+  function setLoading(state){
+    if(state){
+      document.getElementById('signupBtn').innerHTML = `<i class="fas fa-spinner fa-spin"></i>`
+    } else {
+      document.getElementById('signupBtn').innerHTML = `Login`
+    }
+  }
+
   function signUp(name, email, password) {
+    setLoading(true)
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((user) => {
       console.log(user)
@@ -86,7 +96,6 @@
         title: 'Signup successful',
         icon: 'success',
       })
-      window.location = 'login.html'
       // signed in, update profile
       var user = firebase.auth().currentUser;
 
@@ -96,30 +105,61 @@
       }).then(function () {
         // Update successful.
         console.log('profile updated')
+        setLoading(false)
+        window.location = 'login.html'
       }).catch(function (error) {
-        // An error happened.5r
-        console.log(error)
+        // An error happened
+        setLoading(false)
       });
 
     })
     .catch((error) => {
+      setLoading(false)
       swal({
         title: 'Failed to create an account',
         text: `${error.message}`,
         icon: 'error',
       })
-      console.log(error)
     });
 }
 </script>
   <script src="./scripts/app.js"></script>
   <script>
-    function submitForm(event){
+    function validateEmail(email){
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (reg.test(email) == false) {
+          return false;
+        }
+        return true;
+    }
+
+    function submitForm(event) {
       const name = $('#name').value
       const email = $('#email').value
       const password = $('#password').value
       event.preventDefault()
-      signUp(name, email, password)
+      if (name && email && email) {
+        if (validateEmail(email)) {
+          if (password.length > 8) {
+            signUp(name, email, password)
+          } else {
+            swal({
+              title: 'Password should have more than 8 characters',
+              icon: 'error'
+            })
+          }
+        } else {
+          swal({
+            title: 'Please enter a valid email',
+            icon: 'error'
+          })
+        }
+      } else {
+        swal({
+          title: 'Please fill all the fields',
+          icon: 'error'
+        })
+      }
     }
   </script>
 </body> 

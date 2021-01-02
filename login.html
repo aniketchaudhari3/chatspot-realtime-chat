@@ -20,7 +20,7 @@
       <input id="email" placeholder="Your Email" class="input__field" type="email" />
       <input id="password" placeholder="Your password" class="input__field" type="password" />
       <p>Don't have an account? <a href="signup.html">Signup</a></p>
-      <button class="btn nav__btn">Login</button>
+      <button id="loginBtn" class="btn nav__btn">Login</button>
     </form>
   </div>
 
@@ -76,7 +76,17 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
+  // loading state
+  function setLoading(state){
+    if(state){
+      document.getElementById('loginBtn').innerHTML = `<i class="fas fa-spinner fa-spin"></i>`
+    } else {
+      document.getElementById('loginBtn').innerHTML = `Login`
+    }
+  }
+
   function login(email, password) {
+    setLoading(true)
     firebase.auth().signInWithEmailAndPassword(email, password)
   .then((user) => {
     swal({
@@ -86,6 +96,7 @@
     console.log(user)
     localStorage.currentUser = user
     window.location = 'chat.html'
+    setLoading(false)
   })
   .catch((error) => {
     swal({
@@ -93,6 +104,7 @@
       text: `${error.message}`,
       icon: 'error'
     })
+    setLoading(false)
     console.log(error)
   });
 }
@@ -101,20 +113,24 @@
   <script>
     window.onload = () => {
       // check login
+      setLoading(true)
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           // User is signed in.
           window.location = 'chat.html'
-        } else {
+          setLoading(false)
+        } else if(localStorage.loginChecked !== 'true') {
           swal({
             title: 'Please login first'
           })
+          setLoading(false)
+          localStorage.loginChecked = 'true'
           setTimeout(() => {
-            
           window.location = 'login.html'
           }, 800)
         }
       });
+      setLoading(false)
     }
     function submitForm(event){
       const email = $('#email').value
