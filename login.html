@@ -136,8 +136,14 @@
       const email = $('#email').value
       const password = $('#password').value
       event.preventDefault()
-      
-      login(email, password)
+      if(email && password){
+        login(email, password)
+      } else {
+        swal({
+          title: 'Please fill all the fields',
+          icon: 'error'
+        })
+      }
     }
   </script>
 </body> 
