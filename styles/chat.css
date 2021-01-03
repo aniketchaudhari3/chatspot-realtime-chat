@@ -37,7 +37,7 @@
   position: fixed;
   top: 0;
   right:0;
-  height: 50px;
+  height: 9%;
   left: 0;
   display: flex;
   justify-content: space-between;
@@ -55,7 +55,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 10%;
   display: flex;
   justify-content: center;
 }
@@ -89,11 +89,12 @@
 }
 
 .chat__messages{
-  margin-top: 60px;
+  margin-top: 70px;
   width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: calc(100vh - 130px);
+  height: 70%;
+  margin-bottom: 60px;
 }
 
 .message__head__you{
