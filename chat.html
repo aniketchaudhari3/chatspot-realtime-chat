@@ -37,7 +37,6 @@
       <div>fine</div>
     </div>
     </div> -->
-    
   </div>
   <div class="chat__input">
     <input type="text" autofocus onkeydown="sendMessage(event)" placeholder="Type a message" id="chatInput" />
@@ -83,6 +82,22 @@
   <script src="./scripts/app.js"></script>
   <script>
     let chats = []
+    let colors = [
+      '#e67e22',
+      '#2e86de',
+      '#FC427B',
+      '#ff9f1a',
+      '#7158e2',
+      '#474787',
+      '#115173',
+      '#C92E2E',
+      '#F90745',
+      '#235BAB'
+      ]
+
+    function getColor(username){
+      return colors[username.length % 10]
+    }
 
     function renderChat(chats){
       let prevUserName = '' // chats[0].username
@@ -91,12 +106,17 @@
         renderString += `
         ${prevUserName !== chat.username ? `<div class="message__head__${currentUser.uid === chat.userId ? 'you' : 'other'}">${chat.username}</div>` : ''}
         <div class="message ${currentUser.uid === chat.userId ? 'you' : 'other'}">
-          <div>${chat.message}</div>
+          <span style="background-color: ${currentUser.uid !== chat.userId ? getColor(chat.username): ''}">${chat.message}</span>
+          <div style="clear: both;"></div>
         </div>
         `
         prevUserName = chat.username
       })
+      renderString += `<span id="bottomAnchor"></span>`
       document.getElementById('chatMessages').innerHTML = renderString
+      document.getElementById('bottomAnchor').scrollIntoView({
+        behavior: 'smooth'
+      });
     }
 
     function updateChat(snapshot){
@@ -133,7 +153,6 @@
       createChatMessage(currentUser.uid, currentUser.displayName, message.value)
       message.value = ''
       message.focus()
-      window.scrollTo(0,document.body.scrollHeight);
     } else {
      console.log('msg len 0') 
     }
